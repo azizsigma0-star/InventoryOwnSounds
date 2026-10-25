@@ -52,6 +52,11 @@ jobs:
           JAR=$(find source/InventoryOwnSounds-Fabric-1.21.11/build/libs -name 'inventory-own-sounds-1.0.0.jar' | head -n 1)
           echo "Checking JAR: $JAR"
           jar tf "$JAR" | grep -E 'MinecraftScreenMixin|inventoryownsounds.mixins.json' || true
+      - name: Check custom sound files
+        run: |
+          JAR=$(find source/InventoryOwnSounds-Fabric-1.21.11/build/libs -name 'inventory-own-sounds-1.0.0.jar' | head -n 1)
+          echo "Checking sounds in: $JAR"
+          jar tf "$JAR" | grep -E 'sounds.json|inventory_open.ogg|inventory_close.ogg' || true
       - name: Upload JAR
         uses: actions/upload-artifact@v4
         with:
