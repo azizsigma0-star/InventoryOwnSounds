@@ -27,6 +27,18 @@ jobs:
       - name: Extract source project
         run: unzip -o InventoryOwnSounds-Fabric-1.21.11-source.zip -d source
 
+      - name: Fix Gradle repositories
+        run: |
+          cat > source/InventoryOwnSounds-Fabric-1.21.11/settings.gradle <<'EOF'
+          pluginManagement {
+              repositories {
+                  maven { url = 'https://maven.fabricmc.net/' }
+                  gradlePluginPortal()
+                  mavenCentral()
+              }
+          }
+          rootProject.name = 'InventoryOwnSounds'
+          EOF
       - name: Build mod
         run: gradle -p source/InventoryOwnSounds-Fabric-1.21.11 build
 
