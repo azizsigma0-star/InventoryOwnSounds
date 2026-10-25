@@ -27,6 +27,10 @@ jobs:
       - name: Extract source project
         run: unzip -o InventoryOwnSounds-Fabric-1.21.11-source.zip -d source
 
+      - name: Fix Minecraft identifier class
+        run: |
+          FILE="source/InventoryOwnSounds-Fabric-1.21.11/src/main/java/dev/aziz/inventoryownsounds/ModSounds.java"
+          sed -i 's/ResourceLocation/Identifier/g' "$FILE"
       - name: Fix Gradle repositories
         run: |
           cat > source/InventoryOwnSounds-Fabric-1.21.11/settings.gradle <<'EOF'
